@@ -1,0 +1,36 @@
+{% extends 'DrakkarTestBundle::layout.html.twig' %}
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <p>Hola: {{ app.user.username }} - <a href="{{path('logout')}}">logout</a> - <a href="{{path('drakkar_advice_index')}}">mis recomendaciones</a> 
+    <table>
+        <tr>
+            <th>title</th>
+            <th>description</th>
+            <th>price</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price }}</td>
+            {% if item.created_at is null %}
+                <td data-id="{{ item.id }}"><a href="#" onclick="createAdvice({{ item.id }})">recomendar</a></td>
+            {% else %}
+                <td>recomendado el {{ item.created_at | date("m/d/Y") }}</td>
+            {% endif %}
+            <td><a href="{{ path('drakkar_item_detail', { id: item.id }) }}">detalle</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+    {% if page > 1 %}
+        <a href="{{ path('drakkar_index_paginated',{ page: page - 1 }) }}">anterior</a>
+    {% endif %}
+        <a href="{{ path('drakkar_index_paginated',{ page: page + 1 }) }}">siguiente</a>
+{% endblock %}

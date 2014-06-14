@@ -1,0 +1,25 @@
+{% extends 'DrakkarTestBundle::layout.html.twig' %}
+{% block body %}
+    <p>Hola: {{ app.user.username }} - <a href="{{path('logout')}}">logout</a> - <a href="{{path('drakkar_index')}}">inicio</a>
+    <table>
+        <tr>
+            <th>title</th>
+            <th>description</th>
+            <th>price</th>
+            <th>fecha</th>
+        </tr>
+        {% for advice in advices %}
+        <tr>
+            <td>{{ advice.item.title }}</td>
+            <td>{{ advice.item.description }}</td>
+            <td>{{ advice.item.price }}</td>
+            <td>{{ advice.createdAt | date("m/d/Y") }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+    {% if page > 1 %}
+        <a href="{{ path('drakkar_advice_index_paginated',{ page: page - 1 }) }}">anterior</a>
+    {% endif %}
+        <a href="{{ path('drakkar_advice_index_paginated',{ page: page + 1 }) }}">siguiente</a>
+{% endblock %}

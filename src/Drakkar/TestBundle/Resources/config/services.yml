@@ -1,0 +1,13 @@
+services:
+    drakkar.form.type.user:
+        class: Drakkar\TestBundle\Form\Type\UserType
+        tags:
+            - { name: form.type, alias: user }
+            
+    drakkar.item.dispatcher:
+        class: Drakkar\TestBundle\Model\ShirtDispatcher
+        arguments: ['@doctrine.orm.entity_manager']
+        
+    drakkar.advice.dispatcher:
+        class: Drakkar\TestBundle\Model\AdviceDispatcher
+        arguments: ['@doctrine.orm.entity_manager']

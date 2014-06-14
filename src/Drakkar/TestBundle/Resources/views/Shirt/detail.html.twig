@@ -1,0 +1,10 @@
+{% extends 'DrakkarTestBundle::layout.html.twig' %}
+{% block body %}
+    <h3>Titulo: <small>{{ item.title }}</small></h3>
+<h3>Descripcion: <small>{{ item.description }}</small></h3>
+<h3>Precio: <small>{{ item.price }}</small></h3>
+<h3>Precio con descuento: <small>{{ price }}</small></h3>
+<h3>Descuento: <small>{{ discount }}</small></h3>
+<a href="{{ path('drakkar_item_buy', {id: item.id}) }}">comprar</a>
+<a href="{{ path('drakkar_index') }}">inicio</a>
+{% endblock %}

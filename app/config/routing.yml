@@ -1,0 +1,14 @@
+drakkar_test:
+    resource: "@DrakkarTestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+login:
+    path:     /login
+    defaults: { _controller: DrakkarTestBundle:Security:login }
+
+login_check:
+    path: /login_check
+    
+logout:
+    path:   /logout

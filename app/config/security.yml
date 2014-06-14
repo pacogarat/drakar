@@ -1,0 +1,41 @@
+security:
+    encoders:
+        Drakkar\TestBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+    
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        main:
+            entity:
+                class: Drakkar\TestBundle\Entity\User
+                property: username
+    
+    firewalls:
+        secured_area:
+            pattern:   ^/
+            anonymous: ~
+            logout:
+                path:   /logout
+                target: /
+                invalidate_session: false
+            form_login:
+                login_path: login
+                check_path: login_check
+                
+        login_firewall:
+            pattern:   ^/login$
+            anonymous: ~
+            
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/shirt, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/advice, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
